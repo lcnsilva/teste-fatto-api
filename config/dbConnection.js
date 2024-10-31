@@ -1,7 +1,7 @@
 import { neon } from '@neondatabase/serverless';
 
 
-const sql = neon(process.env.POSTGRES_DB_URI);
+const sql = neon(process.env.DATABASE_URL);
 
 const requestHandler = async () => {
   const result = await sql`SELECT version()`;
