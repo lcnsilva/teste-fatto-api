@@ -51,10 +51,10 @@ class TarefaController {
                     ordemApresentacao : newValueOrdemApresentacao
                 }
             })
-            return res.status(201).json(newTarefa);
+            return res.status(201).json({msg: 'Tarefa criada com sucesso.'});
         } catch (error) {
             console.log(error);
-            res.status(500).json({msg: "Internal error"});
+            res.status(500).json({msg: "Erro ao criar tarefa"});
         }
     }
 
@@ -62,12 +62,11 @@ class TarefaController {
         try {
             const { id } = req.params;
             const { nome, custo, dataLimite } = req.body;
-
             const tarefa = await prisma.tarefa.findUnique({
-                where: {id: parseInt(id)}
+                where: {nome: nome}
             })
-            if(tarefa.nome === nome){
-                res.status(406).json({msg: "O nome da tarefa já existe."})
+            if(tarefa && tarefa.id !== parseInt(id)){
+                return res.status(406).json({msg: "O nome da tarefa já existe."});
             }
             const updateTarefa = await prisma.tarefa.update({
                 where: {id : parseInt(id)},
