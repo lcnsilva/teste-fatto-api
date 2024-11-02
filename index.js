@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const result = await dbConnection();
 
-const allowedOrigins = ['http://localhost:5173', 'https://teste-fatto-interface.vercel.app/'];
+const allowedOrigins = ['https://teste-fatto-interface.vercel.app','http://localhost:5173' ];
 
 const corsOptions = {
     origin: function (origin, callback) {
