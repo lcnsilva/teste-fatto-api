@@ -44,7 +44,10 @@ class TarefaController {
                 },
                 take: 1
             })
-            const newValueOrdemApresentacao = lastTarefa[0].ordemApresentacao + 1;
+            let newValueOrdemApresentacao = 1;
+            if(lastTarefa.length > 0){
+                newValueOrdemApresentacao = lastTarefa[0].ordemApresentacao + 1;
+            }                        
             const newTarefa = await prisma.tarefa.create({
                 data: {
                     nome,
