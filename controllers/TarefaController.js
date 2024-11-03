@@ -5,7 +5,10 @@ class TarefaController {
 
     static getTarefas = async (req, res) => {
         try {
-            const tarefas = await prisma.tarefa.findMany()
+            const tarefas = await prisma.tarefa.findMany({
+                orderBy: {
+                    ordemApresentacao: 'asc'
+                }})
             res.json(tarefas);
         } catch (error) {
             console.log(error);
@@ -78,6 +81,36 @@ class TarefaController {
             })
             res.status(200).json(updateTarefa);
         } catch (error) {
+            console.log(error);
+            res.status(500).json({msg: "Internal error"});
+        }
+    }
+
+    static changeOrdemApresentacao = async ( req, res) => {
+        try{
+            const { id } = req.params;
+            const { oldOrdemApresentacao, newOrdemApresentacao } = req.body
+            const secondTarefa = await prisma.tarefa.findMany({
+                where:{
+                    ordemApresentacao: newOrdemApresentacao
+                }
+            })
+            console.log(secondTarefa)
+            const updateOrdemApresentacao = await prisma.tarefa.update({
+                where: {id : parseInt(id)},
+                data: {
+                    ordemApresentacao: newOrdemApresentacao
+                }
+            })
+            const updateSecondTarefa = await prisma.tarefa.update({
+                where: {
+                    id: secondTarefa[0].id
+                }, data:{
+                    ordemApresentacao: oldOrdemApresentacao
+                }
+            })            
+            res.status(200).json({msg: "Tarefa movida com sucesso."})
+        }catch(error){
             console.log(error);
             res.status(500).json({msg: "Internal error"});
         }

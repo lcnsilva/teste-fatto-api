@@ -13,5 +13,5 @@ model Tarefa {
   nome String @unique
   custo Float
   dataLimite DateTime @db.Date
-  ordemApresentacao Int @unique
+  ordemApresentacao Int 
 }

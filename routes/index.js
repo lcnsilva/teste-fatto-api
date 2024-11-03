@@ -12,5 +12,6 @@ routes.get("/tarefas/:id", TarefaController.getTarefaById);
 routes.post("/tarefas", TarefaController.createTarefa);
 routes.put("/tarefas/:id", TarefaController.updateTarefa);
 routes.delete("/tarefas/:id", TarefaController.deleteTarefa);
+routes.put("/ordem/:id", TarefaController.changeOrdemApresentacao);
 
 export default routes;
