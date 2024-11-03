@@ -45,7 +45,6 @@ class TarefaController {
                 take: 1
             })
             const newValueOrdemApresentacao = lastTarefa[0].ordemApresentacao + 1;
-            console.log(newValueOrdemApresentacao);
             const newTarefa = await prisma.tarefa.create({
                 data: {
                     nome,
@@ -95,7 +94,6 @@ class TarefaController {
                     ordemApresentacao: newOrdemApresentacao
                 }
             })
-            console.log(secondTarefa)
             const updateOrdemApresentacao = await prisma.tarefa.update({
                 where: {id : parseInt(id)},
                 data: {
